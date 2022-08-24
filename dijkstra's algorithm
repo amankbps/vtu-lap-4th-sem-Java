@@ -1,0 +1,58 @@
+package djkastars;
+import java.util.*;
+public class prg13 {
+	
+	public static int findmin(int dis[],boolean vis[])
+	{
+		  int mini=-1,minvalue=Integer.MAX_VALUE;
+		  for(int i=0;i<dis.length;i++)
+		  {
+			  if(dis[i]<minvalue && vis[i]==false)
+			  {
+				  mini=i;
+				  minvalue=dis[i];
+			  }
+		  }
+		  return mini;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter the number of vertices ");
+		int n=sc.nextInt();
+		int a[][]=new int[n][n];
+		System.out.println("enter the adjacency matrix ");
+		for(int i=0;i<n;i++)
+		for(int j=0;j<n;j++)
+			a[i][j]=sc.nextInt();
+		boolean vis[]=new boolean[n];
+		int  dis[]=new int[n];
+		System.out.println("enter the source node ");
+		int src=sc.nextInt();
+		for(int i=0;i<n;i++)
+		{
+			if(i!=src)
+				dis[i]=Integer.MAX_VALUE;
+		}
+		for(int i=0;i<n-1;i++)
+		{
+			int mini=findmin(dis,vis);
+			vis[mini]=true;
+			for(int j=0;j<n;j++)
+			{
+				if(a[mini][j]!=Integer.MAX_VALUE && vis[j]==false )
+				{
+					int newdis=dis[mini]+a[mini][j];
+					dis[j]=Math.min(dis[j], newdis);
+				}
+			}
+		}
+		for(int i=0;i<n;i++)
+		System.out.println("minimum distance form source node "+src+" is "+dis[i]);
+		
+	}
+
+}
