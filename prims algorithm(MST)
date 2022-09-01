@@ -1,0 +1,98 @@
+package prims;
+import java.util.*;
+
+class node{
+	int v;
+	int w;
+	node(int x,int y)
+	{
+		v=x;w=y;
+	}
+	node() {}
+	int getv(){return v;}
+	int getw(){return w;}
+}
+
+
+
+
+public class primsalgo {
+	
+	
+	   public static void prims(ArrayList<ArrayList<node>>adj,int n)
+	   {
+		   int key[]=new int[n];
+		   int parent[]=new int[n];
+		   boolean vis[]=new boolean[n];
+		   
+		   for(int i=0;i<n;i++)
+		   {
+			   key[i]=10000000;
+			   vis[i]=false;
+			   parent[i]=-1;
+		   }
+		   
+		   key[0]=0;
+		   for(int i=0;i<n-1;i++)
+		   {
+			   int mini=1000000,u=0;
+			   for(int v=0;v<n;v++)
+			   {
+				   if(vis[v]==false && key[v]<mini)
+				   {
+					   mini=key[v];
+					   u=v;
+				   }
+			   }
+			   vis[u]=true;
+			   
+			   for(node it:adj.get(u))
+			   {
+				   
+				   if(vis[it.getv()]==false && it.getw()<key[it.getv()])
+				   {
+					    parent[it.getv()]=u;
+					    key[it.getv()]=it.getw();
+				   }
+				   
+			   }
+			   
+			   
+			   
+		   }
+		   
+		   for(int i=0;i<n;i++)
+		   {
+			   System.out.println(parent[i]+"-"+i);
+		   }
+		   
+		   
+	   }
+	
+	
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner (System.in);
+		System.out.println("enter the number of nodes ");
+		int n=sc.nextInt();
+		ArrayList<ArrayList<node>>adj=new ArrayList<ArrayList<node>>();
+		for(int i=0;i<n;i++)
+			adj.add(new ArrayList<node>());
+		System.out.println("enter the number of edge ");
+		int e=sc.nextInt();
+		for(int i=0;i<e;i++)
+		{
+			int v,w,u;
+			u=sc.nextInt();
+			v=sc.nextInt();
+			w=sc.nextInt();
+			adj.get(u).add(new node(v,w));
+			adj.get(v).add(new node(u,w));
+		}
+		prims(adj,n);
+
+	}
+
+}
