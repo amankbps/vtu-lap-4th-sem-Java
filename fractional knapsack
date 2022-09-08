@@ -1,0 +1,70 @@
+package fractionalknaps;
+import java.util.*;
+class pair
+{
+	int v,w;
+	public pair(int wi,int val)
+	{
+		v=val;
+		w=wi;
+	}
+	int getv() {return v;}
+	int getw() {return w;}
+}
+class mycmp implements Comparator<pair>
+{
+      public int compare(pair a,pair b) {
+	   double x=((double)a.getv()/(double)a.getw());
+	   double y=(double)b.getv()/(double)b.getw();
+	   if(x<y)
+		   return 1;
+	   else 
+		   return -1;
+      }
+	   
+}
+public class fractionalknapsack {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter the size of array ");
+		int n=sc.nextInt();
+		
+		System.out.println("enter the weight and valuse ");
+		pair a[]=new pair[n];
+		for(int i=0;i<n;i++)
+		{
+			int v,w;
+			w=sc.nextInt();
+			v=sc.nextInt();
+			a[i]=new pair(w,v);
+			
+		}
+		System.out.println("enter the capacity of bag");
+		int cap=sc.nextInt();
+		Arrays.sort(a,new mycmp());
+			
+			double ans=0d;
+			for(pair i:a)
+			{
+				
+				if(cap-i.getw()>=0)
+				{
+					cap-=i.getw();
+					ans+=i.getv();
+				}
+				else 
+				{
+					double frac=((double)cap/(double)i.getw());
+					ans+=(i.getv()*frac);
+					cap=(int)(cap-(i.getw()*frac));
+					break;
+				}
+					
+			}
+		System.out.println("maximum value is "+ans);
+
+	}
+
+}
