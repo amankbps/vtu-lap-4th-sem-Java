@@ -1,0 +1,41 @@
+package subset;
+import java.util.*;
+public class subsetsum {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter the size of array ");
+		int n=sc.nextInt();
+		System.out.println("enter the element of array ");
+		int a[]=new int[n];
+		for(int i=0;i<n;i++)
+			a[i]=sc.nextInt();
+		System.out.println("enter the sum ");
+		int sum=sc.nextInt();
+		//int power=(int)Math.pow(2,n);
+		for(int i=0;i<(1<<n);i++)
+		{
+			ArrayList<Integer>ans=new ArrayList<Integer>();
+			for(int j=0;j<n;j++)
+			{
+				if(((1<<j)&i)>0)
+				{
+					ans.add(a[j]);
+				}
+			}
+			
+			int temp=0;
+			for(int p:ans)
+				temp+=p;
+			if(temp==sum && ans.size()>0 ) {
+				for(int z:ans)
+					System.out.print(z+" ");
+			System.out.println();}
+		}
+			
+		
+
+	}
+
+}
